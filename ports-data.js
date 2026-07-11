@@ -107,34 +107,35 @@ const PORTS = [
     ]
   },
   {
-    id: "hyperos2",
-    name: "Xiaomi HyperOS 2",
-    tagline: "HyperOS 2 port with a butterfly-themed design.",
-    description: "Brings Xiaomi's HyperOS 2 look and feel, custom live wallpapers, and smooth animations to your device.",
-    cover: "images/hyperos2-cover.jpg",
+    id: "hios15",
+    name: "Tecno HiOS 15",
+    tagline: "HiOS 15.0.3 port with a beautiful design.",
+    description: "Brings Tecno's HiOS look and feel, custom live wallpapers, and smooth animations to your device.",
+    cover: "images/hios-cover.jpg",
     device: "Moto G54 / G64",
-    telegram: "https://t.me/your_channel",
+    telegram: "https://t.me/lynx_prjkt",
     flashGuide: {
       disclaimer: "I'm not responsible for bricked devices, dead SD cards, thermonuclear war, or you getting fired because the alarm app failed. Please do some research if you have any concerns about features included in this ROM before flashing it. YOU are choosing to make these modifications, and if you point the finger at me for messing up your device, I will laugh at you. Your warranty will be void if you tamper with it — that's your problem.",
       prerequisites: [
         "Unlocked Bootloader",
-        "Custom Recovery (TWRP/OrangeFox)",
+        "Computer access",
         "Have a brain"
       ],
       steps: [
-        "Reboot to recovery.",
-        "Flash the ROM zip.",
-        "Format Data (type <code>yes</code>).",
-        "Reboot to System."
+        "Reboot to Bootloader.",
+        "Extract the pory zip.",
+        "Run flash.bat",
+        "Follow Preferences."
+        "Wait until you see Flashing complete MSG then Press any key to Reboot."
       ],
       devNotes: "Moto G54 and G64 share the same firmware, so this same zip flashes on both. First boot can take 5–10 minutes — don't panic and don't pull the battery."
     },
     changelog: [
       {
         version: "1.0",
-        date: "2026-06-01",
+        date: "2025-12-11",
         changes: [
-          "Initial stable HyperOS 2 port for Moto G54 / G64",
+          "Initial stable HiOS port for Moto G54 / G64",
           "Butterfly live wallpaper and animations working",
           "Working camera, fingerprint, and NFC"
         ]
@@ -143,13 +144,13 @@ const PORTS = [
     releases: [
       {
         channel: "stable",
-        title: "HyperOS 2 - Stable",
+        title: "HiOS 15 - Stable",
         device: "Moto G54 / G64",
         android: "Android 15",
-        size: "3.85 GB",
-        uploaded: "2026-06-01",
+        size: "5.5 GB",
+        uploaded: "2026-12-11",
         tags: ["STABLE", "X1"],
-        downloadUrl: "#",
+        downloadUrl: "https://sourceforge.net/projects/lynx-prjkt/files/port/Hios_15.0.3_Moto_G54.zip/download",
         mirrorUrl: "#"
       }
     ]
