@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lynx-prjkt — Products</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<!-- ============================================================
+     GOOGLE ADSENSE — replace ca-pub-XXXXXXXXXXXXXXXX with your
+     real publisher ID once your AdSense account is approved.
+     See README.md for full setup steps.
+     ============================================================ -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+<style>
+  .grid{display:grid; grid-template-columns:1fr; gap:20px; padding:4px 20px 20px;}
+  .port-card{text-decoration:none; color:inherit; display:block;}
+  .port-body{padding:20px;}
+  .port-name{font-size:1.3rem; font-weight:500; color:var(--on-surface); margin-bottom:6px;}
+  .port-desc{color:var(--on-surface-var); font-size:0.92rem; margin-bottom:14px;}
+  .port-meta{display:flex; align-items:center; gap:10px; font-size:0.82rem; color:var(--on-surface-var); padding-top:14px; border-top:1px solid var(--outline);}
+  .port-meta .dl-icon{flex-shrink:0;}
+  .port-meta-lines{display:flex; flex-direction:column; gap:2px;}
+  .empty-state{text-align:center; padding:60px 20px; color:var(--on-surface-var); font-size:0.9rem;}
+.hero-note{padding:0 20px 4px; color:var(--on-surface-var); font-size:0.85rem;}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">Lynx-prjkt</a>
+  <div class="header-actions">
+    <button class="icon-btn ripple" id="themeToggleBtn" onclick="toggleTheme()"></button>
+    <a class="btn btn-filled ripple" href="#">Donate</a>
+  </div>
+</header>
+
+<div class="section-label">Available ROMs</div>
+<div class="hero-note">Built for Moto G54 / G64 — same firmware, same zip for both.</div>
+
+<!-- Ad slot: sits between the device filter and the port grid. -->
+<div class="ad-slot">AD SLOT — replace with your &lt;ins class="adsbygoogle"&gt; unit</div>
+
+<div class="grid" id="portGrid"></div>
+
+<footer>Lynx-prjkt · built on GitHub Pages</footer>
+
+<script src="ports-data.js"></script>
+<script src="theme.js"></script>
+<script>
+  const grid = document.getElementById('portGrid');
+
+  function render(list){
+    grid.innerHTML = '';
+    if(list.length === 0){
+      grid.innerHTML = `<div class="empty-state">No ports posted yet — add your first entry in ports-data.js.</div>`;
+      return;
+    }
+    list.forEach(p => {
+      const latest = latestRelease(p);
+      const card = document.createElement('a');
+      card.className = 'card port-card ripple';
+      card.href = `port.html?id=${encodeURIComponent(p.id)}`;
+      card.innerHTML = `
+        <div class="cover">
+          <img src="${p.cover}" alt="${p.name}">
+          <span class="badge ${latest.channel}">${latest.channel === 'stable' ? 'STABLE' : 'PRE-RELEASE'}</span>
+        </div>
+        <div class="port-body">
+          <div class="port-name">${p.name}</div>
+          <div class="port-desc">${p.tagline}</div>
+          <div class="port-meta">
+            <svg class="dl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <div class="port-meta-lines">
+              <span>${p.releases.length} download${p.releases.length === 1 ? '' : 's'} available</span>
+              <span>Updated: ${latest.uploaded}</span>
+            </div>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  render(PORTS);
+</script>
+
+</body>
+</html>
