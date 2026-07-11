@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Xia's Projekt — Products</title>
+<title>Lynx-prjkt — Products</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -25,12 +25,13 @@
   .port-meta .dl-icon{flex-shrink:0;}
   .port-meta-lines{display:flex; flex-direction:column; gap:2px;}
   .empty-state{text-align:center; padding:60px 20px; color:var(--on-surface-var); font-size:0.9rem;}
+.hero-note{padding:0 20px 4px; color:var(--on-surface-var); font-size:0.85rem;}
 </style>
 </head>
 <body>
 
 <header>
-  <a class="logo" href="index.html">Xia's Projekt</a>
+  <a class="logo" href="index.html">Lynx-prjkt</a>
   <div class="header-actions">
     <button class="icon-btn ripple" id="themeToggleBtn" onclick="toggleTheme()"></button>
     <a class="btn btn-filled ripple" href="#">Donate</a>
@@ -38,32 +39,19 @@
 </header>
 
 <div class="section-label">Available ROMs</div>
-<div class="filter-row">
-  <select class="filter-select" id="deviceFilter">
-    <option value="all">All Devices</option>
-  </select>
-</div>
+<div class="hero-note">Built for Moto G54 / G64 — same firmware, same zip for both.</div>
 
 <!-- Ad slot: sits between the device filter and the port grid. -->
 <div class="ad-slot">AD SLOT — replace with your &lt;ins class="adsbygoogle"&gt; unit</div>
 
 <div class="grid" id="portGrid"></div>
 
-<footer>Xia's Projekt · built on GitHub Pages</footer>
+<footer>Lynx-prjkt · built on GitHub Pages</footer>
 
 <script src="ports-data.js"></script>
 <script src="theme.js"></script>
 <script>
   const grid = document.getElementById('portGrid');
-  const deviceFilter = document.getElementById('deviceFilter');
-
-  const devices = [...new Set(PORTS.map(p => p.device))];
-  devices.forEach(d => {
-    const opt = document.createElement('option');
-    opt.value = d;
-    opt.textContent = d;
-    deviceFilter.appendChild(opt);
-  });
 
   function render(list){
     grid.innerHTML = '';
@@ -96,11 +84,6 @@
       grid.appendChild(card);
     });
   }
-
-  deviceFilter.addEventListener('change', () => {
-    const v = deviceFilter.value;
-    render(v === 'all' ? PORTS : PORTS.filter(p => p.device === v));
-  });
 
   render(PORTS);
 </script>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">Port — Xia's Projekt</title>
+<title id="pageTitle">Port — Lynx-prjkt</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -40,7 +40,7 @@
 <body>
 
 <header>
-  <a class="logo" href="index.html">Xia's Projekt</a>
+  <a class="logo" href="index.html">Lynx-prjkt</a>
   <div class="header-actions">
     <button class="icon-btn ripple" id="themeToggleBtn" onclick="toggleTheme()"></button>
     <a class="btn btn-filled ripple" href="#">Donate</a>
@@ -49,10 +49,11 @@
 
 <div id="content"></div>
 
-<footer>Xia's Projekt · built on GitHub Pages</footer>
+<footer>Lynx-prjkt · built on GitHub Pages</footer>
 
 <script src="ports-data.js"></script>
 <script src="theme.js"></script>
+<script src="modals.js"></script>
 <script>
   const params = new URLSearchParams(location.search);
   const port = PORTS.find(p => p.id === params.get('id'));
@@ -80,8 +81,8 @@
         <div class="tag-row">
           ${r.tags.map(t => `<span class="tag ${t === 'STABLE' || t === 'PRE' ? t : 'version'}">${t}</span>`).join('')}
         </div>
-        <a class="btn btn-filled ripple" href="${r.downloadUrl}">${icon('download')} Download</a>
-        ${r.mirrorUrl ? `<a class="btn btn-outlined ripple" href="${r.mirrorUrl}">${icon('link')} Mirror</a>` : ''}
+        <button class="btn btn-filled ripple" onclick="openDownloadReminder('${r.downloadUrl}','download')">${icon('download')} Download</button>
+        ${r.mirrorUrl ? `<button class="btn btn-outlined ripple" onclick="openDownloadReminder('${r.mirrorUrl}','mirror')">${icon('link')} Mirror</button>` : ''}
       </div>
     `).join('');
     return `
@@ -98,7 +99,7 @@
       </div>
     `;
   } else {
-    document.getElementById('pageTitle').textContent = `${port.name} - Xia's Projekt`;
+    document.getElementById('pageTitle').textContent = `${port.name} - Lynx-prjkt`;
     const latest = latestRelease(port);
     const stableReleases = port.releases.filter(r => r.channel === 'stable');
     const preReleases = port.releases.filter(r => r.channel === 'pre');
@@ -119,9 +120,9 @@
       </div>
 
       <div class="actions">
-        <a class="btn btn-filled ripple" href="${port.links.flash}">How to flash</a>
-        <a class="btn btn-tonal ripple" href="${port.links.screenshots}">Screenshots</a>
-        <a class="btn btn-tonal ripple" href="${port.links.changelogs}">Changelogs</a>
+        <button class="btn btn-filled ripple" onclick="openFlashModal('${port.id}')">How to flash</button>
+        <a class="btn btn-tonal ripple" href="${port.telegram}" target="_blank" rel="noopener">Screenshots</a>
+        <button class="btn btn-tonal ripple" onclick="openChangelogModal('${port.id}')">Changelogs</button>
       </div>
 
       <!-- Ad slot: between the action buttons and the download list. -->
