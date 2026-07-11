@@ -3,285 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Port Hub — Custom ROMs</title>
+<title>Xia's Projekt — Products</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 
 <!-- ============================================================
      GOOGLE ADSENSE — replace ca-pub-XXXXXXXXXXXXXXXX with your
      real publisher ID once your AdSense account is approved.
-     Read the notes at the bottom of this file for setup steps.
+     See README.md for full setup steps.
      ============================================================ -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
 <style>
-  :root{
-    --bg: #10131a;
-    --panel: #171b24;
-    --panel-hi: #1e2430;
-    --text: #e9edf5;
-    --text-dim: #8891a3;
-    --accent: #5eead4;
-    --accent-dim: #1f3d38;
-    --line: #262c3a;
-    --radius: 14px;
-    --mono: 'JetBrains Mono', 'Courier New', monospace;
-    --sans: 'Inter', -apple-system, system-ui, sans-serif;
-  }
-
-  *{box-sizing:border-box; margin:0; padding:0;}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--sans);
-    line-height:1.5;
-    padding-bottom:60px;
-  }
-
-  header{
-    padding:20px 20px 16px;
-    border-bottom:1px solid var(--line);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:0;
-    background:rgba(16,19,26,0.92);
-    backdrop-filter: blur(10px);
-    z-index:10;
-  }
-  .logo{
-    font-family:var(--mono);
-    font-weight:700;
-    font-size:1.15rem;
-    letter-spacing:-0.02em;
-    color:var(--text);
-  }
-  .logo span{color:var(--accent);}
-  .header-actions{display:flex; gap:10px;}
-  .btn-ghost{
-    font-family:var(--mono);
-    font-size:0.78rem;
-    color:var(--text-dim);
-    background:transparent;
-    border:1px solid var(--line);
-    padding:8px 12px;
-    border-radius:8px;
-  }
-
-  .hero{
-    padding:28px 20px 8px;
-  }
-  .hero-eyebrow{
-    font-family:var(--mono);
-    font-size:0.72rem;
-    color:var(--accent);
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    margin-bottom:8px;
-  }
-  .hero h1{
-    font-size:1.7rem;
-    font-weight:700;
-    letter-spacing:-0.02em;
-    margin-bottom:6px;
-  }
-  .hero p{
-    color:var(--text-dim);
-    font-size:0.92rem;
-    max-width:46ch;
-  }
-
-  .ad-slot{
-    margin:20px 20px;
-    padding:14px;
-    border:1px dashed var(--line);
-    border-radius:10px;
-    text-align:center;
-    color:var(--text-dim);
-    font-family:var(--mono);
-    font-size:0.7rem;
-    letter-spacing:0.05em;
-  }
-
-  .grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:16px;
-    padding:20px;
-  }
-
-  .port-card{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    overflow:hidden;
-    transition:border-color .15s ease;
-  }
-  .port-card:active{border-color:var(--accent);}
-
-  .port-cover{
-    width:100%;
-    aspect-ratio: 16/8;
-    background:var(--panel-hi);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    overflow:hidden;
-  }
-  .port-cover img{width:100%; height:100%; object-fit:cover;}
-  .status-pill{
-    position:absolute;
-    top:10px; right:10px;
-    font-family:var(--mono);
-    font-size:0.65rem;
-    font-weight:700;
-    letter-spacing:0.06em;
-    padding:4px 9px;
-    border-radius:999px;
-    background:rgba(0,0,0,0.55);
-    backdrop-filter: blur(4px);
-  }
-  .status-stable{color:var(--accent); border:1px solid var(--accent-dim);}
-  .status-pre{color:#f5a35e; border:1px solid #4a3420;}
-
-  .port-body{padding:16px;}
-  .port-name{
-    font-size:1.15rem;
-    font-weight:700;
-    margin-bottom:6px;
-  }
-  .port-desc{
-    color:var(--text-dim);
-    font-size:0.85rem;
-    margin-bottom:12px;
-  }
-  .port-meta{
-    display:flex;
-    gap:14px;
-    font-family:var(--mono);
-    font-size:0.72rem;
-    color:var(--text-dim);
-    margin-bottom:14px;
-    flex-wrap:wrap;
-  }
-
-  .port-actions{display:flex; gap:8px;}
-  .btn-primary{
-    flex:1;
-    background:var(--accent);
-    color:#0a1512;
-    text-align:center;
-    padding:11px;
-    border-radius:9px;
-    font-weight:700;
-    font-size:0.88rem;
-    text-decoration:none;
-  }
-  .btn-secondary{
-    flex:1;
-    background:transparent;
-    border:1px solid var(--line);
-    color:var(--text);
-    text-align:center;
-    padding:11px;
-    border-radius:9px;
-    font-size:0.88rem;
-    text-decoration:none;
-  }
-
-  .empty-state{
-    text-align:center;
-    padding:60px 20px;
-    color:var(--text-dim);
-    font-family:var(--mono);
-    font-size:0.85rem;
-  }
-
-  footer{
-    text-align:center;
-    padding:30px 20px;
-    color:var(--text-dim);
-    font-family:var(--mono);
-    font-size:0.72rem;
-    border-top:1px solid var(--line);
-    margin-top:20px;
-  }
+  .grid{display:grid; grid-template-columns:1fr; gap:20px; padding:4px 20px 20px;}
+  .port-card{text-decoration:none; color:inherit; display:block;}
+  .port-body{padding:20px;}
+  .port-name{font-size:1.3rem; font-weight:500; color:var(--on-surface); margin-bottom:6px;}
+  .port-desc{color:var(--on-surface-var); font-size:0.92rem; margin-bottom:14px;}
+  .port-meta{display:flex; align-items:center; gap:10px; font-size:0.82rem; color:var(--on-surface-var); padding-top:14px; border-top:1px solid var(--outline);}
+  .port-meta .dl-icon{flex-shrink:0;}
+  .port-meta-lines{display:flex; flex-direction:column; gap:2px;}
+  .empty-state{text-align:center; padding:60px 20px; color:var(--on-surface-var); font-size:0.9rem;}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">port<span>_</span>hub</div>
+  <a class="logo" href="index.html">Xia's Projekt</a>
   <div class="header-actions">
-    <a class="btn-ghost" href="#">Donate</a>
+    <button class="icon-btn ripple" id="themeToggleBtn" onclick="toggleTheme()"></button>
+    <a class="btn btn-filled ripple" href="#">Donate</a>
   </div>
 </header>
 
-<div class="hero">
-  <div class="hero-eyebrow">// available builds</div>
-  <h1>Custom ROM Ports</h1>
-  <p>Moto G54 / G64 — same firmware, same zip. Every build listed below.</p>
+<div class="section-label">Available ROMs</div>
+<div class="filter-row">
+  <select class="filter-select" id="deviceFilter">
+    <option value="all">All Devices</option>
+  </select>
 </div>
 
-<!-- Ad slot placeholder: sits between navigation and content,
-     a natural spot for a banner unit once AdSense is approved. -->
-<div class="ad-slot">AD SLOT — replace with your <ins class="adsbygoogle"> unit</div>
+<!-- Ad slot: sits between the device filter and the port grid. -->
+<div class="ad-slot">AD SLOT — replace with your &lt;ins class="adsbygoogle"&gt; unit</div>
 
 <div class="grid" id="portGrid"></div>
 
-<footer>Port Hub · built on GitHub Pages</footer>
+<footer>Xia's Projekt · built on GitHub Pages</footer>
 
+<script src="ports-data.js"></script>
+<script src="theme.js"></script>
 <script>
-  // ============================================================
-  // PORT DATA — add one block per ROM release. Copy the example
-  // below, paste it above the closing "];", fill in your values,
-  // and add a comma after the block above it. That's the only
-  // edit needed — nothing else in this file has to change.
-  //
-  // EXAMPLE (copy this shape for each new release):
-  // {
-  //   name: "Nothing OS 4.1",
-  //   status: "stable",        // "stable" or "pre"
-  //   version: "v2",
-  //   updated: "2026-07-10",
-  //   size: "3.28 GB",
-  //   desc: "One or two lines describing this build.",
-  //   cover: "screenshots/nothingos-4.1.jpg",   // path to your image
-  //   downloadUrl: "https://.../download-link",
-  //   mirrorUrl: "https://.../mirror-link"
-  // }
-  // ============================================================
-  const ports = [
-
-  ];
-
   const grid = document.getElementById('portGrid');
+  const deviceFilter = document.getElementById('deviceFilter');
+
+  const devices = [...new Set(PORTS.map(p => p.device))];
+  devices.forEach(d => {
+    const opt = document.createElement('option');
+    opt.value = d;
+    opt.textContent = d;
+    deviceFilter.appendChild(opt);
+  });
 
   function render(list){
     grid.innerHTML = '';
     if(list.length === 0){
-      grid.innerHTML = `<div class="empty-state">No builds posted yet — add your first entry in the "ports" array.</div>`;
+      grid.innerHTML = `<div class="empty-state">No ports posted yet — add your first entry in ports-data.js.</div>`;
       return;
     }
     list.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'port-card';
+      const latest = latestRelease(p);
+      const card = document.createElement('a');
+      card.className = 'card port-card ripple';
+      card.href = `port.html?id=${encodeURIComponent(p.id)}`;
       card.innerHTML = `
-        <div class="port-cover">
+        <div class="cover">
           <img src="${p.cover}" alt="${p.name}">
-          <span class="status-pill status-${p.status}">${p.status === 'stable' ? 'STABLE' : 'PRE-RELEASE'}</span>
+          <span class="badge ${latest.channel}">${latest.channel === 'stable' ? 'STABLE' : 'PRE-RELEASE'}</span>
         </div>
         <div class="port-body">
           <div class="port-name">${p.name}</div>
-          <div class="port-desc">${p.desc}</div>
+          <div class="port-desc">${p.tagline}</div>
           <div class="port-meta">
-            <span>${p.version}</span>
-            <span>${p.size}</span>
-            <span>${p.updated}</span>
-          </div>
-          <div class="port-actions">
-            <a class="btn-primary" href="${p.downloadUrl}">Download</a>
-            <a class="btn-secondary" href="${p.mirrorUrl}">Mirror</a>
+            <svg class="dl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <div class="port-meta-lines">
+              <span>${p.releases.length} download${p.releases.length === 1 ? '' : 's'} available</span>
+              <span>Updated: ${latest.uploaded}</span>
+            </div>
           </div>
         </div>
       `;
@@ -289,55 +97,13 @@
     });
   }
 
-  render(ports);
+  deviceFilter.addEventListener('change', () => {
+    const v = deviceFilter.value;
+    render(v === 'all' ? PORTS : PORTS.filter(p => p.device === v));
+  });
+
+  render(PORTS);
 </script>
 
 </body>
 </html>
-<!--
-============================================================
-HOW TO ADD ADSENSE TO A GITHUB PAGES SITE
-============================================================
-
-1. APPLY FOR ADSENSE
-   - Go to https://adsense.google.com and sign up using your
-     GitHub Pages URL (e.g. https://yourname.github.io).
-   - Google needs to see real, original content before approving
-     — a bare download-redirect page with no writeup is often
-     rejected. Descriptions, changelogs, and screenshots (like
-     you already have) help.
-   - Review can take anywhere from a few days to a few weeks.
-
-2. GET YOUR PUBLISHER ID
-   - Once approved, AdSense gives you a snippet with an ID like
-     ca-pub-1234567890123456.
-   - Replace "ca-pub-XXXXXXXXXXXXXXXX" in the <script> tag at the
-     top of this file with your real ID. That tag needs to be in
-     the <head> of every page you want ads on.
-
-3. ADD ads.txt
-   - Create a file named exactly "ads.txt" at the ROOT of your
-     GitHub repo (same level as index.html), containing one line:
-       google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
-     (use your own publisher ID). This is required — AdSense will
-     flag your site without it.
-
-4. PLACE AN AD UNIT
-   - In AdSense, create an "ad unit" (display ad), which gives you
-     an <ins class="adsbygoogle" ...></ins> snippet.
-   - Swap that in wherever you want an ad to actually render —
-     for example, replace the "ad-slot" div in this file with it.
-
-5. PUSH TO GITHUB
-   - Commit and push index.html + ads.txt to your repo's main
-     branch (or whichever branch Pages is set to build from).
-     GitHub Pages redeploys automatically within a minute or two.
-
-A NOTE ON CONTENT: AdSense reviews the whole site, not just the
-ad code. Sites that are just a wall of ROM download buttons with
-little original writing/description are more likely to get
-rejected or later demonetized than ones with genuine changelogs,
-screenshots, and explanations — which it looks like you're
-already including based on your reference site.
-============================================================
--->

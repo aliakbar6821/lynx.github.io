@@ -1,0 +1,214 @@
+/* ============================================================
+   MATERIAL YOU TOKENS
+   Two palettes (light / dark), switched by data-theme on <html>.
+   Everything below derives from these variables — change a value
+   here and it updates across both pages.
+   ============================================================ */
+:root,
+[data-theme="light"]{
+  --bg:#fbfaf9;
+  --surface:#ffffff;
+  --surface-container:#f2efec;
+  --surface-container-high:#eae6e2;
+  --on-surface:#1c1b1a;
+  --on-surface-var:#4c4846;
+  --outline:#dcd7d3;
+
+  --primary:#3a5da8;
+  --on-primary:#ffffff;
+  --primary-container:#dae2ff;
+  --on-primary-container:#001945;
+
+  --stable:#2c6e49;
+  --stable-container:#d4f0dd;
+  --pre:#8a5300;
+  --pre-container:#ffe1b3;
+
+  --shadow: 0 1px 3px rgba(0,0,0,0.10), 0 4px 14px rgba(28,27,26,0.06);
+}
+
+[data-theme="dark"]{
+  --bg:#0f0f0f;
+  --surface:#161616;
+  --surface-container:#1e1e1e;
+  --surface-container-high:#282828;
+  --on-surface:#eae6e2;
+  --on-surface-var:#c8c2bd;
+  --outline:#3a3a3a;
+
+  --primary:#adc6ff;
+  --on-primary:#00296b;
+  --primary-container:#1c3d78;
+  --on-primary-container:#dae2ff;
+
+  --stable:#8fd8a8;
+  --stable-container:#1c3d29;
+  --pre:#f5c26b;
+  --pre-container:#4a3400;
+
+  --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.35);
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{color-scheme: light dark;}
+body{
+  font-family:'Roboto', 'Google Sans', system-ui, -apple-system, sans-serif;
+  background:var(--bg);
+  color:var(--on-surface);
+  line-height:1.5;
+  padding-bottom:60px;
+  min-height:100vh;
+  transition: background .2s ease, color .2s ease;
+}
+
+/* ---------- App bar ---------- */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:16px 20px;
+  position:sticky;
+  top:0;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(14px);
+  z-index:10;
+  border-bottom:1px solid var(--outline);
+}
+.logo{
+  font-weight:500;
+  font-size:1.35rem;
+  letter-spacing:0;
+  color:var(--on-surface);
+  text-decoration:none;
+}
+.header-actions{display:flex; align-items:center; gap:8px; flex-shrink:0;}
+
+/* ---------- Buttons (M3 shapes) ---------- */
+.btn{
+  position:relative;
+  overflow:hidden;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-family:inherit;
+  font-weight:500;
+  font-size:0.9rem;
+  border:none;
+  cursor:pointer;
+  text-decoration:none;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn-filled{
+  background:var(--primary);
+  color:var(--on-primary);
+  padding:12px 22px;
+  border-radius:20px;
+}
+.btn-tonal{
+  background:var(--primary-container);
+  color:var(--on-primary-container);
+  padding:12px 22px;
+  border-radius:20px;
+}
+.btn-outlined{
+  background:transparent;
+  color:var(--on-surface);
+  border:1px solid var(--outline);
+  padding:11px 22px;
+  border-radius:20px;
+}
+.icon-btn{
+  width:42px; height:42px;
+  border-radius:50%;
+  background:var(--surface-container);
+  color:var(--on-surface);
+  display:flex; align-items:center; justify-content:center;
+  border:none; cursor:pointer; flex-shrink:0;
+}
+
+.ripple-fx{
+  position:absolute;
+  border-radius:50%;
+  background:currentColor;
+  opacity:0.18;
+  transform:scale(0);
+  animation:ripple .5s ease-out;
+  pointer-events:none;
+}
+@keyframes ripple{ to{ transform:scale(1); opacity:0; } }
+
+/* ---------- Section labels / dividers ---------- */
+.section-label{
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  font-size:0.75rem;
+  font-weight:600;
+  color:var(--on-surface-var);
+  padding:26px 20px 14px;
+}
+.group-label{
+  display:flex; align-items:center; gap:12px;
+  text-transform:uppercase; letter-spacing:0.1em; font-size:0.75rem; font-weight:600;
+  color:var(--on-surface-var); padding:8px 20px 12px;
+}
+.group-label .rule{flex:1; height:1px; background:var(--outline);}
+
+/* ---------- Filter chip / select ---------- */
+.filter-row{padding:0 20px 18px;}
+.filter-select{
+  appearance:none;
+  background:var(--surface-container);
+  border:1px solid var(--outline);
+  color:var(--on-surface);
+  font-family:inherit;
+  font-weight:500;
+  font-size:0.92rem;
+  padding:13px 40px 13px 18px;
+  border-radius:16px;
+  width:100%;
+  max-width:320px;
+  background-image:linear-gradient(45deg, transparent 50%, var(--on-surface-var) 50%), linear-gradient(135deg, var(--on-surface-var) 50%, transparent 50%);
+  background-position: calc(100% - 22px) center, calc(100% - 17px) center;
+  background-size:5px 5px, 5px 5px;
+  background-repeat:no-repeat;
+}
+
+/* ---------- Ad slot ---------- */
+.ad-slot{
+  margin:6px 20px 22px;
+  padding:16px;
+  border:1.5px dashed var(--outline);
+  border-radius:16px;
+  text-align:center;
+  color:var(--on-surface-var);
+  font-size:0.72rem;
+  letter-spacing:0.04em;
+}
+
+/* ---------- Cards (M3 elevated / filled card) ---------- */
+.card{
+  background:var(--surface-container);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.cover{width:100%; aspect-ratio:16/10; background:var(--surface-container-high); position:relative; overflow:hidden;}
+.cover img{width:100%; height:100%; object-fit:cover; display:block;}
+
+.badge{
+  position:absolute; top:12px; right:12px;
+  font-size:0.68rem; font-weight:700; letter-spacing:0.04em;
+  padding:6px 12px; border-radius:12px;
+}
+.badge.stable{background:var(--stable-container); color:var(--stable);}
+.badge.pre{background:var(--pre-container); color:var(--pre);}
+
+footer{
+  text-align:center;
+  padding:34px 20px 10px;
+  color:var(--on-surface-var);
+  font-size:0.75rem;
+}
